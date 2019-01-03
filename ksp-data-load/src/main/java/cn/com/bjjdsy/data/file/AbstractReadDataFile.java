@@ -12,8 +12,9 @@ public abstract class AbstractReadDataFile {
 	static final Logger logger = LoggerFactory.getLogger(AbstractReadDataFile.class);
 
 	public void read(String filename) {
+		System.out.println("filename:" + filename);
 		int linenum = 0;
-		File dataFile = new File(this.getClass().getResource(filename).getFile());
+		File dataFile = new File(filename);
 		try (BufferedReader reader = new BufferedReader(new FileReader(dataFile));) {
 			reader.readLine();
 //			reader.readLine();

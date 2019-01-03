@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bjjdsy.data.mapper.ParamVersionTaskMapper">
+	<resultMap id="BaseResultMap" type="cn.com.bjjdsy.data.entity.db.ParamVersionTask">
+		<id column="task_job_id" property="taskJobId" jdbcType="INTEGER" />
+		<result column="version_code" property="versionCode" jdbcType="VARCHAR" />
+		<result column="task_job_statue" property="taskJobStatue" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		task_job_id, version_code, task_job_statue
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from param_version_task
+		where task_job_id = #{taskJobId,jdbcType=INTEGER}
+	</select>
+
+</mapper>

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Implementation-Title: ksp-data-load
-Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Version: 1.0.0
 Built-By: zhangjj
 Implementation-Vendor-Id: cn.com.bjjdsy
 Build-Jdk: 1.8.0_66

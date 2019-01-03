@@ -1,6 +1,14 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/data/line_base_info.txt=GBK
+encoding//src/main/resources/data/line_depart_interval_time.txt=GBK
+encoding//src/main/resources/data/line_station_sequence_info.txt=GBK
+encoding//src/main/resources/data/section_base_info.txt=GBK
+encoding//src/main/resources/data/station_base_info.txt=GBK
+encoding//src/main/resources/data/station_parktime.txt=GBK
+encoding//src/main/resources/data/transfer_line_walktime_info.txt=GBK
+encoding//src/main/resources/data/transferstation_base_info.txt=GBK
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8

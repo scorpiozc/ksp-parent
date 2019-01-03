@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry
+		location="C:\Users\zhangjj\.m2\repository\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar" />
+
+	<context id="MysqlTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.100.3.180:3309/cre_core?useUnicode=true&amp;autoReconnect=true&amp;failOverReadOnly=false"
+			userId="creapp" password="creapp@2O17">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="cn.com.bjjdsy.datadump.entity"
+			targetProject="MAVEN">
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="cn.com.bjjdsy.datadump.mapper"
+			targetProject="MAVEN"></sqlMapGenerator>
+
+		<javaClientGenerator targetPackage="cn.com.bjjdsy.datadump.mapper"
+			type="XMLMAPPER" targetProject="MAVEN"></javaClientGenerator>
+
+		<table schema="" tableName="tax_payer"
+			domainObjectName="TaxPayer" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false" selectByExampleQueryId="false"
+			enableDeleteByPrimaryKey="true" enableInsert="true"
+			enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="false">
+		</table>
+	</context>
+</generatorConfiguration>
