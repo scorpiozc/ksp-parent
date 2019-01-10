@@ -1,5 +1,7 @@
 package cn.com.bjjdsy.data.loader.impl;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +23,15 @@ public class LoadTimeDataFileImpl implements LoadData {
 	private String filepath;
 	private String versionCode;
 
-	public static void main(String[] args) {
-		new LoadTimeDataFileImpl().load("", "01");
+	public static void mainTest(String[] args) {
+		try {
+			new LoadTimeDataFileImpl().load("01");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void load(String filepath, String versionCode) {
+	public void load(String versionCode) throws IOException {
 		this.versionCode = versionCode;
 		this.filepath = filepath;
 		Stopwatch timer = new Stopwatch();
@@ -57,27 +63,27 @@ public class LoadTimeDataFileImpl implements LoadData {
 //		});
 	}
 
-	private void loadAccseDateAttribute() {
+	private void loadAccseDateAttribute() throws IOException {
 		AbstractReadDataFile rdf = new ReadAccseDateAttributeFile();
 		rdf.read(CalcConstant.ACCSE_DATE_ATTRIBUTE);
 	}
 
-	private void loadAccseTimeAttribute() {
+	private void loadAccseTimeAttribute() throws IOException {
 		AbstractReadDataFile rdf = new ReadAccseTimeAttributeFile();
 		rdf.read(CalcConstant.ACCSE_TIME_ATTRIBUTE);
 	}
 
-	private void loadAccseWalkTime() {
+	private void loadAccseWalkTime() throws IOException {
 		AbstractReadDataFile rdf = new ReadAccseWalkTimeFile();
 		rdf.read(CalcConstant.ACCSE_WALK_TIME);
 	}
 
-	private void loadKPath() {
+	private void loadKPath() throws IOException {
 		AbstractReadDataFile rdf = new ReadKPathFile();
 		rdf.read(CalcConstant.K_PATH);
 	}
 
-	private void loadRunMap() {
+	private void loadRunMap() throws IOException {
 		AbstractReadDataFile rdf = new ReadRunMapFile();
 		rdf.read(CalcConstant.PLAN_RUN_MAP);
 //		CalcConstant.runMapMap.forEach((key, value) -> {
@@ -87,12 +93,12 @@ public class LoadTimeDataFileImpl implements LoadData {
 //		});
 	}
 
-	private void loadParamSectionTcc() {
+	private void loadParamSectionTcc() throws IOException {
 		AbstractReadDataFile rdf = new ReadParamSectionTccFile();
 		rdf.read(CalcConstant.PARAM_SECTION_TCC);
 	}
 
-	private void loadSection() {
+	private void loadSection() throws IOException {
 		AbstractReadDataFile rdf = new ReadSectionFile();
 		rdf.read(CalcConstant.SECTION_BASE_INFO);
 //		CalcConstant.sectionDict.forEach((k, v) -> {

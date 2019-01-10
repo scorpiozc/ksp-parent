@@ -6,5 +6,5 @@ import cn.com.bjjdsy.data.entity.db.ParamSection;
 
 public interface SectionService {
 
-	public List<ParamSection> loadParamSection(String filepath, String versionCode);
+	public List<ParamSection> findParamSections(String versionCode);
 }

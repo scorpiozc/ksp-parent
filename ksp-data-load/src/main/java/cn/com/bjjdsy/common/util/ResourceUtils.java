@@ -13,8 +13,4 @@ public class ResourceUtils {
 		return new PropertiesConfiguration("jdbc.properties");
 	}
 
-	public static void main(String[] args) {
-
-	}
-
 }

@@ -17,7 +17,7 @@ public class WriteTransferFile {
 
 	private static final Logger logger = LoggerFactory.getLogger(WriteTransferFile.class);
 
-	public void createTransferWalktimeFile(String filepath, String versionCode, List<ParamSwitch> switchs) {
+	public void createTransferBaseInfoFile(String filepath, String versionCode, List<ParamSwitch> switchs) {
 		try (FileOutputStream fos = new FileOutputStream(filepath + CalcConstant.TRANSFER_BASE_INFO)) {
 			for (ParamSwitch pswitch : switchs) {
 				IOUtils.write(this.transferBaseToString(pswitch), fos);
@@ -28,7 +28,7 @@ public class WriteTransferFile {
 	}
 
 	private String transferBaseToString(ParamSwitch paramSwitch) {
-		return paramSwitch.getSwitchCode() + "," + paramSwitch.getoStationCode() + "\n" + paramSwitch.getSwitchCode()
-				+ "," + paramSwitch.getiStationCode() + "\n";
+		return paramSwitch.getSwitchCode() + "," + paramSwitch.getoStationCode() + "\n";
+//		+ paramSwitch.getSwitchCode()	+ "," + paramSwitch.getiStationCode() + "\n"
 	}
 }

@@ -2,8 +2,6 @@
     <wb-module deploy-name="ksp-path-service">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/src/test/java"/>
-        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
         <dependent-module deploy-path="/" handle="module:/resource/ksp-data-load/ksp-data-load">
             <dependency-type>uses</dependency-type>
         </dependent-module>

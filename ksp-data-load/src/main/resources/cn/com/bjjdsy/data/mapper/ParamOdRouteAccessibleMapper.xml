@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bjjdsy.data.mapper.ParamOdRouteAccessibleMapper">
+  <insert id="insert" parameterType="cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible">
+    insert into PARAM_OD_ROUTE_ACCESSIBLE (ID, VERSION_CODE, O_STATION_CODE, 
+      D_STATION_CODE, ROUTE_NO, ROUTE_LINE_CODE, 
+      ROUTE_STATION_CODE, ROUTE_STATION_TIME, ROUTE_DISTANCE, 
+      ROUTE_STATION_NO, COST_TIME, IMPEDANCE_TIME, 
+      ROUTE_TRANSFER_CODE, ROUTE_TRANSFER_TIME, ROUTE_TRANSFER_FREQUENCY
+      )
+    values (SEQ_OD_ROUTE_ACCES.NEXTVAL, #{versionCode,jdbcType=VARCHAR}, #{oStationCode,jdbcType=DECIMAL}, 
+      #{dStationCode,jdbcType=DECIMAL}, #{routeNo,jdbcType=DECIMAL}, #{routeLineCode,jdbcType=VARCHAR}, 
+      #{routeStationCode,jdbcType=VARCHAR}, #{routeStationTime,jdbcType=VARCHAR}, #{routeDistance,jdbcType=DECIMAL}, 
+      #{routeStationNo,jdbcType=DECIMAL}, #{costTime,jdbcType=DECIMAL}, #{impedanceTime,jdbcType=DECIMAL}, 
+      #{routeTransferCode,jdbcType=VARCHAR}, #{routeTransferTime,jdbcType=VARCHAR}, #{routeTransferFrequency,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertBatch" parameterType="cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible">
+    insert into PARAM_OD_ROUTE_ACCESSIBLE (ID, VERSION_CODE, O_STATION_CODE, 
+      D_STATION_CODE, ROUTE_NO, ROUTE_LINE_CODE, 
+      ROUTE_STATION_CODE, ROUTE_STATION_TIME, ROUTE_DISTANCE, 
+      ROUTE_STATION_NO, COST_TIME, IMPEDANCE_TIME, 
+      ROUTE_TRANSFER_CODE, ROUTE_TRANSFER_TIME, ROUTE_TRANSFER_FREQUENCY
+      )
+    SELECT SEQ_OD_ROUTE_ACCES.NEXTVAL, A.*
+    FROM(
+    <foreach collection ="list" item="odRoute" index="index" separator ="union all">
+      select  #{odRoute.versionCode,jdbcType=VARCHAR}, #{odRoute.oStationCode,jdbcType=DECIMAL}, 
+      #{odRoute.dStationCode,jdbcType=DECIMAL}, #{odRoute.routeNo,jdbcType=DECIMAL}, #{odRoute.routeLineCode,jdbcType=VARCHAR}, 
+      #{odRoute.routeStationCode,jdbcType=VARCHAR}, #{odRoute.routeStationTime,jdbcType=VARCHAR}, #{odRoute.routeDistance,jdbcType=DECIMAL}, 
+      #{odRoute.routeStationNo,jdbcType=DECIMAL}, #{odRoute.costTime,jdbcType=DECIMAL}, #{odRoute.impedanceTime,jdbcType=DECIMAL}, 
+      #{odRoute.routeTransferCode,jdbcType=VARCHAR}, #{odRoute.routeTransferTime,jdbcType=VARCHAR}, #{odRoute.routeTransferFrequency,jdbcType=DECIMAL}
+      from dual
+    </foreach >
+    )A
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible">
+    insert into PARAM_OD_ROUTE_ACCESSIBLE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="versionCode != null">
+        VERSION_CODE,
+      </if>
+      <if test="oStationCode != null">
+        O_STATION_CODE,
+      </if>
+      <if test="dStationCode != null">
+        D_STATION_CODE,
+      </if>
+      <if test="routeNo != null">
+        ROUTE_NO,
+      </if>
+      <if test="routeLineCode != null">
+        ROUTE_LINE_CODE,
+      </if>
+      <if test="routeStationCode != null">
+        ROUTE_STATION_CODE,
+      </if>
+      <if test="routeStationTime != null">
+        ROUTE_STATION_TIME,
+      </if>
+      <if test="routeDistance != null">
+        ROUTE_DISTANCE,
+      </if>
+      <if test="routeStationNo != null">
+        ROUTE_STATION_NO,
+      </if>
+      <if test="costTime != null">
+        COST_TIME,
+      </if>
+      <if test="impedanceTime != null">
+        IMPEDANCE_TIME,
+      </if>
+      <if test="routeTransferCode != null">
+        ROUTE_TRANSFER_CODE,
+      </if>
+      <if test="routeTransferTime != null">
+        ROUTE_TRANSFER_TIME,
+      </if>
+      <if test="routeTransferFrequency != null">
+        ROUTE_TRANSFER_FREQUENCY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="versionCode != null">
+        #{versionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="oStationCode != null">
+        #{oStationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="dStationCode != null">
+        #{dStationCode,jdbcType=DECIMAL},
+      </if>
+      <if test="routeNo != null">
+        #{routeNo,jdbcType=DECIMAL},
+      </if>
+      <if test="routeLineCode != null">
+        #{routeLineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routeStationCode != null">
+        #{routeStationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routeStationTime != null">
+        #{routeStationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="routeDistance != null">
+        #{routeDistance,jdbcType=DECIMAL},
+      </if>
+      <if test="routeStationNo != null">
+        #{routeStationNo,jdbcType=DECIMAL},
+      </if>
+      <if test="costTime != null">
+        #{costTime,jdbcType=DECIMAL},
+      </if>
+      <if test="impedanceTime != null">
+        #{impedanceTime,jdbcType=DECIMAL},
+      </if>
+      <if test="routeTransferCode != null">
+        #{routeTransferCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routeTransferTime != null">
+        #{routeTransferTime,jdbcType=VARCHAR},
+      </if>
+      <if test="routeTransferFrequency != null">
+        #{routeTransferFrequency,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

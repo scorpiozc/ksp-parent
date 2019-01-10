@@ -1,6 +1,8 @@
 package cn.com.bjjdsy.data.loader;
 
+import java.io.IOException;
+
 public interface LoadData {
 
-	void load(String filepath, String versionCode);
+	void load(String versionCode) throws IOException;
 }

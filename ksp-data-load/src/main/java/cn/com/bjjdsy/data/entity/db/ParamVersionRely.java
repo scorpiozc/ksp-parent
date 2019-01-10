@@ -1,42 +1,53 @@
 package cn.com.bjjdsy.data.entity.db;
 
 public class ParamVersionRely {
+    private Short id;
 
-	private String versionCode;
-	private String paramCode;
-	private String paramCodeDepend;
-	private String versionCodeDepend;
+    private String paramCode;
 
-	public String getVersionCode() {
-		return versionCode;
-	}
+    private String versionCode;
 
-	public void setVersionCode(String versionCode) {
-		this.versionCode = versionCode;
-	}
+    private String paramCodeDepend;
 
-	public String getParamCode() {
-		return paramCode;
-	}
+    private String versionCodeDepend;
 
-	public void setParamCode(String paramCode) {
-		this.paramCode = paramCode;
-	}
+    public Short getId() {
+        return id;
+    }
 
-	public String getParamCodeDepend() {
-		return paramCodeDepend;
-	}
+    public void setId(Short id) {
+        this.id = id;
+    }
 
-	public void setParamCodeDepend(String paramCodeDepend) {
-		this.paramCodeDepend = paramCodeDepend;
-	}
+    public String getParamCode() {
+        return paramCode;
+    }
 
-	public String getVersionCodeDepend() {
-		return versionCodeDepend;
-	}
+    public void setParamCode(String paramCode) {
+        this.paramCode = paramCode;
+    }
 
-	public void setVersionCodeDepend(String versionCodeDepend) {
-		this.versionCodeDepend = versionCodeDepend;
-	}
+    public String getVersionCode() {
+        return versionCode;
+    }
 
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getParamCodeDepend() {
+        return paramCodeDepend;
+    }
+
+    public void setParamCodeDepend(String paramCodeDepend) {
+        this.paramCodeDepend = paramCodeDepend;
+    }
+
+    public String getVersionCodeDepend() {
+        return versionCodeDepend;
+    }
+
+    public void setVersionCodeDepend(String versionCodeDepend) {
+        this.versionCodeDepend = versionCodeDepend;
+    }
 }

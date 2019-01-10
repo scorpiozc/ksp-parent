@@ -14,7 +14,7 @@ public class ReadDepartFile extends AbstractReadDataFile {
 		int departIntervalTime = Integer.parseInt(data[2]);
 
 		// add the depart
-		CalcConstant.departIntervalTimesDict.put(lineCode, departIntervalTime * 60);
+		CalcConstant.departIntervalTimesDict.put(lineCode, departIntervalTime);
 	}
 
 }

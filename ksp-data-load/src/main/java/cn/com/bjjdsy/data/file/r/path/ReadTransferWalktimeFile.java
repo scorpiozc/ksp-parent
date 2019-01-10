@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import cn.com.bjjdsy.common.config.CustomConfig;
 import cn.com.bjjdsy.common.constant.CalcConstant;
+import cn.com.bjjdsy.common.constant.CalcPathEnum;
 import cn.com.bjjdsy.data.entity.path.Section;
 import cn.com.bjjdsy.data.entity.path.Station;
 import cn.com.bjjdsy.data.file.AbstractReadDataFile;
@@ -34,7 +35,7 @@ public class ReadTransferWalktimeFile extends AbstractReadDataFile {
 		Map<Integer, ArrayList<Integer>> transferDict = CalcConstant.transferDict;
 		Map<Integer, Integer> departIntervalTimes = CalcConstant.departIntervalTimesDict;
 		Map<String, Integer> specials = customConfig.getFakeTransferDict();
-		System.out.println("specials:" + specials.size());
+		//System.out.println("specials:" + specials.size());
 
 		// find the start and end station
 		Station startStation = null, endStation = null;
@@ -59,7 +60,8 @@ public class ReadTransferWalktimeFile extends AbstractReadDataFile {
 			impedance = 0;
 		} else {
 			traveltime = time + (int) (departIntervalTimes.get(end) * departWeight);
-			impedance = (time + departIntervalTimes.get(end) * (departAlphaOn ? departWeight : 1)) * 1.5;
+			impedance = (time + departIntervalTimes.get(end) * (departAlphaOn ? departWeight : 1))
+					* CalcPathEnum.RULE.getTransCoeff();
 		}
 		Section connect = new Section(startStation, endStation, null, CalcConstant.sectionId++, -1, 0, traveltime,
 				impedance);

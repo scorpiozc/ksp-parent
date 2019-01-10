@@ -1,69 +1,33 @@
 package cn.com.bjjdsy.data.entity.db;
 
-public class ParamSwitch {
+public class ParamSwitch extends ParamSwitchKey {
+    private String oLineCode;
 
-	private String versionCode;
-	private int switchCode;
-	private String oLineCode;
-	private int oStationCode;
-	private String iLineCode;
-	private int iStationCode;
-	private int switchWalkTime;
+    private String iLineCode;
 
-	public String getVersionCode() {
-		return versionCode;
-	}
+    private Short switchWalkTime;
 
-	public void setVersionCode(String versionCode) {
-		this.versionCode = versionCode;
-	}
+    public String getoLineCode() {
+        return oLineCode;
+    }
 
-	public int getSwitchCode() {
-		return switchCode;
-	}
+    public void setoLineCode(String oLineCode) {
+        this.oLineCode = oLineCode;
+    }
 
-	public void setSwitchCode(int switchCode) {
-		this.switchCode = switchCode;
-	}
+    public String getiLineCode() {
+        return iLineCode;
+    }
 
-	public String getoLineCode() {
-		return oLineCode;
-	}
+    public void setiLineCode(String iLineCode) {
+        this.iLineCode = iLineCode;
+    }
 
-	public void setoLineCode(String oLineCode) {
-		this.oLineCode = oLineCode;
-	}
+    public Short getSwitchWalkTime() {
+        return switchWalkTime;
+    }
 
-	public int getoStationCode() {
-		return oStationCode;
-	}
-
-	public void setoStationCode(int oStationCode) {
-		this.oStationCode = oStationCode;
-	}
-
-	public String getiLineCode() {
-		return iLineCode;
-	}
-
-	public void setiLineCode(String iLineCode) {
-		this.iLineCode = iLineCode;
-	}
-
-	public int getiStationCode() {
-		return iStationCode;
-	}
-
-	public void setiStationCode(int iStationCode) {
-		this.iStationCode = iStationCode;
-	}
-
-	public int getSwitchWalkTime() {
-		return switchWalkTime;
-	}
-
-	public void setSwitchWalkTime(int switchWalkTime) {
-		this.switchWalkTime = switchWalkTime;
-	}
-
+    public void setSwitchWalkTime(Short switchWalkTime) {
+        this.switchWalkTime = switchWalkTime;
+    }
 }

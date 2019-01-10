@@ -6,5 +6,5 @@ import cn.com.bjjdsy.data.entity.db.ParamSwitch;
 
 public interface SwitchService {
 
-	List<ParamSwitch> loadParamSwitch(String filepath, String versionCode);
+	List<ParamSwitch> findParamSwitchs(String versionCode);
 }

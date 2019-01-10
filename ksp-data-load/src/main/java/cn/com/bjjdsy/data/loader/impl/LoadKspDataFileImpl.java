@@ -3,7 +3,10 @@ package cn.com.bjjdsy.data.loader.impl;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.com.bjjdsy.common.config.CustomConfig;
 import cn.com.bjjdsy.common.constant.CalcConstant;
 import cn.com.bjjdsy.data.entity.path.Line;
 import cn.com.bjjdsy.data.entity.path.Station;
@@ -45,11 +49,12 @@ public class LoadKspDataFileImpl implements LoadData {
 	private ReadTransferFile readTransferFile;
 	@Autowired
 	private ReadTransferWalktimeFile readTransferWalktimeFile;
+	@Autowired
+	private CustomConfig customConfig;
 
 	@Override
-	public void load(String filepath, String versionCode) {
-		this.filepath = filepath;
-		logger.info("{}", this.filepath);
+	public void load(String versionCode) throws IOException {
+		this.filepath = customConfig.getFilepath() + versionCode;
 		loadParktime();
 		loadDepart();
 		loadTransfer();
@@ -62,38 +67,37 @@ public class LoadKspDataFileImpl implements LoadData {
 		loadTransferWalktime();
 	}
 
-	private void loadDepart() {
+	private void loadDepart() throws IOException {
 //		AbstractReadDataFile rdf = new ReadDepartFile();
 		readDepartFile.read(filepath + CalcConstant.LINE_DEPART_INTERVAL_TIME);
 	}
 
-	private void loadLine() {
+	private void loadLine() throws IOException {
 //		AbstractReadDataFile rdf = new ReadLineFile();
 		readLineFile.read(filepath + CalcConstant.LINE_BASE_INFO);
 	}
 
-	private void loadParktime() {
+	private void loadParktime() throws IOException {
 //		AbstractReadDataFile rdf = new ReadParktimeFile();
-		System.out.println("readParktimeFile:" + readParktimeFile);
 		readParktimeFile.read(filepath + CalcConstant.STATION_PARKTIME);
 	}
 
-	private void loadSection() {
+	private void loadSection() throws IOException {
 //		AbstractReadDataFile rdf = new ReadSectionFile();
 		readSectionFile.read(filepath + CalcConstant.SECTION_BASE_INFO);
 	}
 
-	private void loadStation() {
+	private void loadStation() throws IOException {
 //		AbstractReadDataFile rdf = new ReadStationFile();
 		readStationFile.read(filepath + CalcConstant.STATION_BASE_INFO);
 	}
 
-	private void loadTransfer() {
+	private void loadTransfer() throws IOException {
 //		AbstractReadDataFile rdf = new ReadTransferFile();
 		readTransferFile.read(filepath + CalcConstant.TRANSFER_BASE_INFO);
 	}
 
-	private void loadTransferWalktime() {
+	private void loadTransferWalktime() throws IOException {
 //		AbstractReadDataFile rdf = new ReadTransferWalktimeFile();
 		readTransferWalktimeFile.read(filepath + CalcConstant.TRANSFER_LINE_WALKTIME_INFO);
 	}
@@ -112,6 +116,7 @@ public class LoadKspDataFileImpl implements LoadData {
 			CalcConstant.stationIndexes[code] = CalcConstant.stationCounts;
 			CalcConstant.stationCodes[CalcConstant.stationCounts++] = code;
 			CalcConstant.stations[code] = new Station(code, null, CalcConstant.stationDict.get(code));
+
 		}
 	}
 
@@ -126,7 +131,7 @@ public class LoadKspDataFileImpl implements LoadData {
 		}
 	}
 
-	public static void main(String[] args) {
-		new LoadKspDataFileImpl().load("", "01");
+	public static void mainTest(String[] args) throws IOException {
+		new LoadKspDataFileImpl().load("01");
 	}
 }

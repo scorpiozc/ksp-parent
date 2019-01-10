@@ -1,5 +1,6 @@
 custom:
-  filepath: /opt/acc/data/
+  filepath: /Acc/pathSets/data/
+  batchSize: 2000
   fakeTransferDict:
     '1001': 9069
     '9069': 1001
@@ -7,3 +8,18 @@ custom:
     '9021': 1043
     '467': 9319
     '9319': 467
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@10.0.30.20:1521:ACCSA
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: accsa
+    password: accsa2O18ascca
+    hikari:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      maximum-pool-size: 100
+      validation-timeout: 10000
+mybatis:
+  mapper-locations:
+  - classpath:cn.com.bjjdsy.data.mapper/*.xml
+  type-aliases-package: cn.com.bjjdsy.data.entity.db
+  config-location: classpath:mybatis-configuration.xml

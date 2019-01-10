@@ -1,6 +1,7 @@
 package cn.com.bjjdsy.path.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,11 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.com.bjjdsy.calc.CalcEngine;
-import cn.com.bjjdsy.calc.entity.ReachPath;
 import cn.com.bjjdsy.common.config.CustomConfig;
+import cn.com.bjjdsy.common.constant.CalcConstant;
+import cn.com.bjjdsy.common.constant.CalcPathEnum;
 import cn.com.bjjdsy.common.util.Stopwatch;
+import cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible;
+import cn.com.bjjdsy.data.entity.db.ParamRuleAccessible;
 import cn.com.bjjdsy.data.entity.db.ParamVersionInfo;
 import cn.com.bjjdsy.data.loader.LoadData;
+import cn.com.bjjdsy.data.service.ParamOdRouteAccessibleService;
+import cn.com.bjjdsy.data.service.ParamRuleAccessibleService;
 import cn.com.bjjdsy.data.service.ParamVersionInfoService;
 import cn.com.bjjdsy.path.service.KspService;
 
@@ -23,6 +29,7 @@ import cn.com.bjjdsy.path.service.KspService;
 public class KspServiceImpl implements KspService {
 
 	private static final Logger logger = LoggerFactory.getLogger(KspServiceImpl.class);
+	private String filepath;
 	@Resource(name = "loadKspDataFileImpl")
 	private LoadData loadDataFile;
 	@Resource(name = "loadKspDataDbImpl")
@@ -33,29 +40,58 @@ public class KspServiceImpl implements KspService {
 	private CalcEngine calcEngine;
 	@Autowired
 	private CustomConfig customConfig;
+	@Autowired
+	private ParamRuleAccessibleService paramRuleAccessibleService;
+	@Autowired
+	private ParamOdRouteAccessibleService paramOdRouteAccessibleService;
 
-	private void loadBaseData(int taskJobId) {
-//		try {
-//			File filepath = new File(ResourceUtils.getConfigProperties().getString("filepath") + versionCode);
-		ParamVersionInfo paramVersionInfo = paramVersionInfoService.getParamVersionInfoByTaskJobId(taskJobId);
-		String filepath = customConfig.getFilepath() + paramVersionInfo.getVersionCode();
+	private void initParam(String versionCode) {
+		filepath = customConfig.getFilepath() + versionCode;
+		ParamRuleAccessible paramRuleAccessible = paramRuleAccessibleService.findParamRuleAccessible(versionCode);
+		CalcPathEnum.RULE.setkNum(paramRuleAccessible.getkNum());
+		CalcPathEnum.RULE.setTransCoeff(paramRuleAccessible.getTransCoeff().doubleValue());
+	}
+
+	private void initCons() {
+		CalcConstant.sectionId = 0;
+		CalcConstant.stationCounts = 0;
+		CalcConstant.stationDict.clear();
+		CalcConstant.lineDict.clear();
+		CalcConstant.transferDict.clear();
+		CalcConstant.parktimesDict.clear();
+		CalcConstant.departIntervalTimesDict.clear();
+		CalcConstant.fakeTransferDict.clear();
+//		CalcConstant.stations = new Station[MAX_STATION];
+//		CalcConstant.lines = new Line[MAX_LINE];
+//		CalcConstant.stationCodes = new int[MAX_STATION];
+//		CalcConstant.stationIndexes = new int[MAX_STATION];
+	}
+
+	private void loadBaseData(String versionCode) throws IOException {
+		this.initCons();
 		File dataFolder = new File(filepath);
 		if (!dataFolder.exists()) {
 			dataFolder.mkdirs();
-			loadDataDb.load(filepath, paramVersionInfo.getVersionCode());
+			loadDataDb.load(versionCode);
 		}
-		loadDataFile.load(filepath, paramVersionInfo.getVersionCode());
-//		} catch (ConfigurationException e) {
-//			e.printStackTrace();
-//		}
+		loadDataFile.load(versionCode);
 	}
 
 	private void calc() {
-		calcEngine.start(5);
+		calcEngine.start(CalcPathEnum.RULE.getkNum());
 	}
 
-	private void printOut() {
-		List<ReachPath> list = calcEngine.printPath(9067, 1003);
+	private void printOut(String versionCode) {
+		List<ParamOdRouteAccessible> list = calcEngine.printPath(versionCode);// 9067, 1003,
+		final int LIST_SIZE = list.size();
+		Stopwatch timer = new Stopwatch();
+		timer.start();
+		paramOdRouteAccessibleService.saveParamOdRouteAccessible(list);
+		timer.stop();
+		logger.info("save odroute {} spend: {} seconds\n", LIST_SIZE, String.format("%.2f", timer.time()));
+//		list.forEach(odRoute -> {
+//			 paramOdRouteAccessibleService.saveParamOdRouteAccessible(odRoute);
+//		});
 
 //		list.forEach(p -> {
 //			logger.info("{},{},{},{},{},{},{},{}", p.getFromStation(), p.getToStation(), p.getSn(), p.getPathLine(),
@@ -64,28 +100,46 @@ public class KspServiceImpl implements KspService {
 	}
 
 	@Override
-	public void calcPath(int taskJobId) {
-		Stopwatch timer = new Stopwatch();
+	public String calcPath(String taskJobId) {
+		ParamVersionInfo paramVersionInfo = paramVersionInfoService.getParamVersionInfoByTaskJobId(taskJobId);
+		if (paramVersionInfo == null) {
+			return "taskJobId is not exists";
+		}
+		String versionCode = paramVersionInfo.getVersionCode();
 
+		Stopwatch timer = new Stopwatch();
 		timer.start();
-		this.loadBaseData(taskJobId);
+		try {
+			this.initParam(versionCode);
+			this.loadBaseData(versionCode);
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+			return "0";
+		}
 		timer.stop();
-		logger.info("load data spend: {} seconds\n", String.format("%f", timer.time()));
+		logger.info("load data spend: {} seconds\n", String.format("%.2f", timer.time()));
 
 		timer.start();
 		this.calc();
 		timer.stop();
-		logger.info("calc path spend: {} seconds\n", String.format("%f", timer.time()));
+		logger.info("calc path spend: {} seconds\n", String.format("%.2f", timer.time()));
 
 		timer.start();
-		this.printOut();
+		this.printOut(versionCode);
 		timer.stop();
-		logger.info("print path spend: {} seconds\n", String.format("%f", timer.time()));
+		logger.info("print path spend: {} seconds\n", String.format("%.2f", timer.time()));
+		return "ok";
 	}
 
 	@Override
-	public void calcTimeForward(int taskJobId) {
-		// TODO Auto-generated method stub
+	public String calcTimeForward(String taskJobId) {
+		return null;
+	}
 
+	public static void main(String[] args) {
+		System.out.println("KNum:" + CalcPathEnum.RULE.getkNum() + " " + CalcPathEnum.RULE.getTransCoeff());
+		CalcPathEnum.RULE.setkNum(10);
+		CalcPathEnum.RULE.setTransCoeff(1.8);
+		System.out.println("KNum:" + CalcPathEnum.RULE.getkNum() + " " + CalcPathEnum.RULE.getTransCoeff());
 	}
 }

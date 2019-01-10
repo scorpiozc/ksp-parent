@@ -1,83 +1,43 @@
 package cn.com.bjjdsy.data.entity.db;
 
-public class ParamSection {
+public class ParamSection extends ParamSectionKey {
+    private String lineCode;
 
-	private String versionCode;
-	private String lineCode;
-	private int oStationCode;
-	private int dStationCode;
-	private int direction;
-	private int sectionDistance;
-	private int sectionRunTime;
-	private int startStationStopTime;
+    private Integer sectionDistance;
 
-	public String getVersionCode() {
-		return versionCode;
-	}
+    private Integer sectionRunTime;
 
-	public void setVersionCode(String versionCode) {
-		this.versionCode = versionCode;
-	}
+    private Integer startStationStopTime;
 
-	public String getLineCode() {
-		return lineCode;
-	}
+    public String getLineCode() {
+        return lineCode;
+    }
 
-	public void setLineCode(String lineCode) {
-		this.lineCode = lineCode;
-	}
+    public void setLineCode(String lineCode) {
+        this.lineCode = lineCode;
+    }
 
-	public int getoStationCode() {
-		return oStationCode;
-	}
+    public Integer getSectionDistance() {
+        return sectionDistance;
+    }
 
-	public void setoStationCode(int oStationCode) {
-		this.oStationCode = oStationCode;
-	}
+    public void setSectionDistance(Integer sectionDistance) {
+        this.sectionDistance = sectionDistance;
+    }
 
-	public int getdStationCode() {
-		return dStationCode;
-	}
+    public Integer getSectionRunTime() {
+        return sectionRunTime;
+    }
 
-	public void setdStationCode(int dStationCode) {
-		this.dStationCode = dStationCode;
-	}
+    public void setSectionRunTime(Integer sectionRunTime) {
+        this.sectionRunTime = sectionRunTime;
+    }
 
-	public int getDirection() {
-		return direction;
-	}
+    public Integer getStartStationStopTime() {
+        return startStationStopTime;
+    }
 
-	public void setDirection(int direction) {
-		this.direction = direction;
-	}
-
-	public int getSectionRunTime() {
-		return sectionRunTime;
-	}
-
-	public void setSectionRunTime(int sectionRunTime) {
-		this.sectionRunTime = sectionRunTime;
-	}
-
-	public int getStartStationStopTime() {
-		return startStationStopTime;
-	}
-
-	public void setStartStationStopTime(int startStationStopTime) {
-		this.startStationStopTime = startStationStopTime;
-	}
-
-	public int getSectionDistance() {
-		return sectionDistance;
-	}
-
-	public void setSectionDistance(int sectionDistance) {
-		this.sectionDistance = sectionDistance;
-	}
-
-	@Override
-	public String toString() {
-		return this.lineCode + "," + this.oStationCode + "," + this.dStationCode + "," + this.sectionDistance + ","
-				+ this.sectionRunTime + "," + this.direction;
-	}
+    public void setStartStationStopTime(Integer startStationStopTime) {
+        this.startStationStopTime = startStationStopTime;
+    }
 }

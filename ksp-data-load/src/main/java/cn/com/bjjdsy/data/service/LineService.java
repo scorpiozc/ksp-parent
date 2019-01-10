@@ -6,5 +6,5 @@ import cn.com.bjjdsy.data.entity.db.ParamLine;
 
 public interface LineService {
 
-	List<ParamLine> loadParamLine(String filepath, String versionCode);
+	List<ParamLine> findParamLines(String versionCode);
 }

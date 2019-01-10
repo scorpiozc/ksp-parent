@@ -23,10 +23,14 @@ public class ReadSectionFile extends AbstractReadDataFile {
 		Station[] stations = CalcConstant.stations;
 		Line[] lines = CalcConstant.lines;
 		// check that the stations are valid
-		if (stations[s1].getLine() != null && stations[s1].getLine().getCode() != lineCode)
+		if (stations[s1].getLine() != null && stations[s1].getLine().getCode() != lineCode) {
+			System.out.println(stations[s1].getLine().getCode() + " " + stations[s1].getCode() + " " + lineCode);
 			throw new IllegalArgumentException("Input first station is conflicting.");
-		if (stations[s2].getLine() != null && stations[s2].getLine().getCode() != lineCode)
+		}
+		if (stations[s2].getLine() != null && stations[s2].getLine().getCode() != lineCode) {
+			System.out.println(stations[s2].getLine().getCode() + " " + stations[s2].getCode() + " " + lineCode);
 			throw new IllegalArgumentException("Input first station is conflicting.");
+		}
 
 		// set the tracks that they are on
 		stations[s1].setLine(lines[lineCode]);

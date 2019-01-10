@@ -6,5 +6,5 @@ import cn.com.bjjdsy.data.entity.db.ParamStation;
 
 public interface StationService {
 
-	public List<ParamStation> loadParamStation(String filepath, String versionCode);
+	public List<ParamStation> findParamStations(String versionCode);
 }

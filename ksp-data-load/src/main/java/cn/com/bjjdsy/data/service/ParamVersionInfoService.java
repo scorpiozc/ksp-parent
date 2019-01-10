@@ -4,5 +4,5 @@ import cn.com.bjjdsy.data.entity.db.ParamVersionInfo;
 
 public interface ParamVersionInfoService {
 
-	public ParamVersionInfo getParamVersionInfoByTaskJobId(int taskJobId);
+	public ParamVersionInfo getParamVersionInfoByTaskJobId(String taskJobId);
 }

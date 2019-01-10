@@ -1,73 +1,133 @@
 package cn.com.bjjdsy.data.entity.db;
 
-public class ParamLine {
+public class ParamLine extends ParamLineKey {
+    private String lineName;
 
-	private String versionCode;
-	private String lineCode;
-	private String lineName;
-	private int upLowInterval;
-	private int downLowInterval;
-	private int upPeriodInterval;
-	private int downPeriodInterval;
+    private String tccLineCode;
 
-	public String getVersionCode() {
-		return versionCode;
-	}
+    private String tccLineName;
 
-	public void setVersionCode(String versionCode) {
-		this.versionCode = versionCode;
-	}
+    private Long lineErgCode;
 
-	public String getLineCode() {
-		return lineCode;
-	}
+    private Short lineType;
 
-	public void setLineCode(String lineCode) {
-		this.lineCode = lineCode;
-	}
+    private Integer lineLength;
 
-	public String getLineName() {
-		return lineName;
-	}
+    private String lineOperationUnit;
 
-	public void setLineName(String lineName) {
-		this.lineName = lineName;
-	}
+    private String lineColor;
 
-	public int getUpLowInterval() {
-		return upLowInterval;
-	}
+    private Short upPeriodInterval;
 
-	public void setUpLowInterval(int upLowInterval) {
-		this.upLowInterval = upLowInterval;
-	}
+    private Short downPeriodInterval;
 
-	public int getDownLowInterval() {
-		return downLowInterval;
-	}
+    private Short upLowInterval;
 
-	public void setDownLowInterval(int downLowInterval) {
-		this.downLowInterval = downLowInterval;
-	}
+    private Short downLowInterval;
 
-	@Override
-	public String toString() {
-		return this.lineCode + "," + this.lineName;
-	}
+    private String remark;
 
-	public int getUpPeriodInterval() {
-		return upPeriodInterval;
-	}
+    public String getLineName() {
+        return lineName;
+    }
 
-	public void setUpPeriodInterval(int upPeriodInterval) {
-		this.upPeriodInterval = upPeriodInterval;
-	}
+    public void setLineName(String lineName) {
+        this.lineName = lineName;
+    }
 
-	public int getDownPeriodInterval() {
-		return downPeriodInterval;
-	}
+    public String getTccLineCode() {
+        return tccLineCode;
+    }
 
-	public void setDownPeriodInterval(int downPeriodInterval) {
-		this.downPeriodInterval = downPeriodInterval;
-	}
+    public void setTccLineCode(String tccLineCode) {
+        this.tccLineCode = tccLineCode;
+    }
+
+    public String getTccLineName() {
+        return tccLineName;
+    }
+
+    public void setTccLineName(String tccLineName) {
+        this.tccLineName = tccLineName;
+    }
+
+    public Long getLineErgCode() {
+        return lineErgCode;
+    }
+
+    public void setLineErgCode(Long lineErgCode) {
+        this.lineErgCode = lineErgCode;
+    }
+
+    public Short getLineType() {
+        return lineType;
+    }
+
+    public void setLineType(Short lineType) {
+        this.lineType = lineType;
+    }
+
+    public Integer getLineLength() {
+        return lineLength;
+    }
+
+    public void setLineLength(Integer lineLength) {
+        this.lineLength = lineLength;
+    }
+
+    public String getLineOperationUnit() {
+        return lineOperationUnit;
+    }
+
+    public void setLineOperationUnit(String lineOperationUnit) {
+        this.lineOperationUnit = lineOperationUnit;
+    }
+
+    public String getLineColor() {
+        return lineColor;
+    }
+
+    public void setLineColor(String lineColor) {
+        this.lineColor = lineColor;
+    }
+
+    public Short getUpPeriodInterval() {
+        return upPeriodInterval;
+    }
+
+    public void setUpPeriodInterval(Short upPeriodInterval) {
+        this.upPeriodInterval = upPeriodInterval;
+    }
+
+    public Short getDownPeriodInterval() {
+        return downPeriodInterval;
+    }
+
+    public void setDownPeriodInterval(Short downPeriodInterval) {
+        this.downPeriodInterval = downPeriodInterval;
+    }
+
+    public Short getUpLowInterval() {
+        return upLowInterval;
+    }
+
+    public void setUpLowInterval(Short upLowInterval) {
+        this.upLowInterval = upLowInterval;
+    }
+
+    public Short getDownLowInterval() {
+        return downLowInterval;
+    }
+
+    public void setDownLowInterval(Short downLowInterval) {
+        this.downLowInterval = downLowInterval;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

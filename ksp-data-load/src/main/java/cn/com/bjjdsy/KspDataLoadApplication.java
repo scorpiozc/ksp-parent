@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 //@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class KspDataLoadApplication {
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		SpringApplication app = new SpringApplication(KspDataLoadApplication.class);
 		app.setWebApplicationType(WebApplicationType.NONE);
 		app.run(args);

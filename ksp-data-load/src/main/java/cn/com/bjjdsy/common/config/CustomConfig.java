@@ -11,6 +11,16 @@ import org.springframework.stereotype.Component;
 public class CustomConfig {
 
 	private String filepath;
+	private int batchSize;
+
+	public int getBatchSize() {
+		return batchSize;
+	}
+
+	public void setBatchSize(int batchSize) {
+		this.batchSize = batchSize;
+	}
+
 	private Map<String, Integer> fakeTransferDict = new HashMap<>();
 
 	public Map<String, Integer> getFakeTransferDict() {
