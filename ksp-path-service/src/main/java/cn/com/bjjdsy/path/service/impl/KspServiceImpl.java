@@ -81,14 +81,20 @@ public class KspServiceImpl implements KspService {
 		calcEngine.start(CalcPathEnum.RULE.getkNum());
 	}
 
-	private void printOut(String versionCode) {
-		List<ParamOdRouteAccessible> list = calcEngine.printPath(versionCode);// 9067, 1003,
-		final int LIST_SIZE = list.size();
-		Stopwatch timer = new Stopwatch();
-		timer.start();
-		paramOdRouteAccessibleService.saveParamOdRouteAccessible(list);
-		timer.stop();
-		logger.info("save odroute {} spend: {} seconds\n", LIST_SIZE, String.format("%.2f", timer.time()));
+	private String printOut(String versionCode) {
+		int rows = paramOdRouteAccessibleService.findParamOdRouteAccessibleByVersionCode(versionCode);
+		if (rows == 1) {
+			return "0";
+		} else {
+			List<ParamOdRouteAccessible> list = calcEngine.printPath(versionCode);// 9067, 1003,
+			final int LIST_SIZE = list.size();
+			Stopwatch timer = new Stopwatch();
+			timer.start();
+			paramOdRouteAccessibleService.saveBatcheParamOdRouteAccessible(list);
+			timer.stop();
+			logger.info("save odroute {} spend: {} seconds\n", LIST_SIZE, String.format("%.2f", timer.time()));
+			return "1";
+		}
 //		list.forEach(odRoute -> {
 //			 paramOdRouteAccessibleService.saveParamOdRouteAccessible(odRoute);
 //		});
@@ -125,7 +131,9 @@ public class KspServiceImpl implements KspService {
 		logger.info("calc path spend: {} seconds\n", String.format("%.2f", timer.time()));
 
 		timer.start();
-		this.printOut(versionCode);
+		if ("0".equals(this.printOut(versionCode))) {
+			return "od route is inserted already ";
+		}
 		timer.stop();
 		logger.info("print path spend: {} seconds\n", String.format("%.2f", timer.time()));
 		return "ok";

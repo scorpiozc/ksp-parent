@@ -1,6 +1,6 @@
 custom:
   filepath: /Acc/pathSets/data/
-  batchSize: 2000
+  batchSize: 5000
   fakeTransferDict:
     '1001': 9069
     '9069': 1001
