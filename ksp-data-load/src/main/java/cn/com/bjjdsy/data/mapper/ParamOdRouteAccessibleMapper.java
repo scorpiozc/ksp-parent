@@ -10,4 +10,6 @@ public interface ParamOdRouteAccessibleMapper {
 	int insertSelective(ParamOdRouteAccessible record);
 
 	int insertBatch(List<ParamOdRouteAccessible> records);
+
+	int selectParamOdRouteAccessibleByVersionCode(String versionCode);
 }

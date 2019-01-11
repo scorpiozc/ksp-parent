@@ -23,12 +23,18 @@
       and O_STATION_CODE = #{oStationCode,jdbcType=DECIMAL}
       and D_STATION_CODE = #{dStationCode,jdbcType=DECIMAL}
       and DIRECTION = #{direction,jdbcType=DECIMAL}
+    <![CDATA[
+    and SECTION_RUN_TIME <> 0
+    ]]>      
   </select>
   <select id="selectByVersionCode" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from PARAM_SECTION
     where VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+    <![CDATA[
+    and SECTION_RUN_TIME <> 0
+    ]]>
     order by LINE_CODE
   </select>
 </mapper>

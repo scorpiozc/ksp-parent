@@ -131,4 +131,13 @@
       </if>
     </trim>
   </insert>
+  <select id="selectParamOdRouteAccessibleByVersionCode" parameterType="java.lang.String"  resultType="java.lang.Integer">
+    select 
+    count(1)
+    from PARAM_OD_ROUTE_ACCESSIBLE
+    where VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+    <![CDATA[
+    and rownum =1
+    ]]>
+  </select>
 </mapper>

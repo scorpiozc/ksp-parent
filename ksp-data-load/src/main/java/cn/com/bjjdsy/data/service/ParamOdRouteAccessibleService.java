@@ -9,4 +9,8 @@ public interface ParamOdRouteAccessibleService {
 	void saveParamOdRouteAccessible(ParamOdRouteAccessible paramOdRouteAccessible);
 
 	void saveParamOdRouteAccessible(List<ParamOdRouteAccessible> paramOdRouteAccessibles);
+
+	void saveBatcheParamOdRouteAccessible(List<ParamOdRouteAccessible> paramOdRouteAccessibles);
+
+	int findParamOdRouteAccessibleByVersionCode(String versionCode);
 }
