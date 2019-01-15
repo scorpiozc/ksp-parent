@@ -95,5 +95,6 @@
 		<module>ksp-path-calc</module>
 		<module>ksp-service</module>
 		<module>ksp-path-service</module>
+		<module>ksp-path-effective-service</module>
 	</modules>
 </project>

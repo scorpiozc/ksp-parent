@@ -9,6 +9,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
+import cn.com.bjjdsy.calc.accessible.AccessibleCalcEngine;
 import cn.com.bjjdsy.common.util.Stopwatch;
 import cn.com.bjjdsy.data.loader.LoadData;
 import cn.com.bjjdsy.data.loader.impl.LoadKspDataFileImpl;
@@ -30,7 +31,7 @@ public class KspPathCalcApplication {
 		timer.stop();
 		logger.info("load data spend: {} seconds\n", String.format("%f", timer.time()));
 		timer.start();
-		CalcEngine calcEngine = new CalcEngine();
+		AccessibleCalcEngine calcEngine = new AccessibleCalcEngine();
 		calcEngine.start(5);
 		timer.stop();
 		logger.info("calc path spend: {} seconds\n", String.format("%f", timer.time()));

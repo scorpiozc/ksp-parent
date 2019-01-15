@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
 	<classPathEntry
-		location="C:\Users\zhangjj\.m2\repository\com\oracle\ojdbc6\11.2.0.3\ojdbc6-11.2.0.3.jar" />
+		location="C:\Users\jdsyly\.m2\repository\com\oracle\ojdbc6\11.2.0.3\ojdbc6-11.2.0.3.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
@@ -29,14 +29,14 @@
 			targetProject="MAVEN"></sqlMapGenerator>
 
 		<javaClientGenerator targetPackage="cn.com.bjjdsy.data.mapper"
-			type="ANNOTATEDMAPPER" targetProject="MAVEN"></javaClientGenerator>
+			type="XMLMAPPER" targetProject="MAVEN"></javaClientGenerator>
 
-		<table schema="" tableName="PARAM_OD_ROUTE_ACCESSIBLE"
-			domainObjectName="ParamOdRouteAccessible" enableCountByExample="false"
+		<table schema="" tableName="PARAM_OD_ROUTE_EFFECTIVE"
+			domainObjectName="ParamOdRouteEffective" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
-			enableUpdateByExample="false" selectByExampleQueryId="false"
+			enableUpdateByExample="false" selectByExampleQueryId="true"
 			enableDeleteByPrimaryKey="false" enableInsert="true"
-			enableSelectByPrimaryKey="false" enableUpdateByPrimaryKey="false">
+			enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="false">
 		</table>
 	</context>
 </generatorConfiguration>

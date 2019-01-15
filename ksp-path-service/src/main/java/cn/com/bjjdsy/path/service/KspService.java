@@ -4,5 +4,5 @@ public interface KspService {
 
 	String calcPath(String taskJobId);
 
-	String calcTimeForward(String taskJobId);
+	String checkPath(String versionCode);
 }

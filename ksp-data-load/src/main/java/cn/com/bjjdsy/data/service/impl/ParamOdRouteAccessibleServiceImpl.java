@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.com.bjjdsy.common.config.CustomConfig;
 import cn.com.bjjdsy.common.util.Stopwatch;
 import cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible;
+import cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessibleQO;
+import cn.com.bjjdsy.data.entity.db.ParamOdRouteEffective;
 import cn.com.bjjdsy.data.mapper.ParamOdRouteAccessibleMapper;
 import cn.com.bjjdsy.data.service.ParamOdRouteAccessibleService;
 
@@ -100,6 +102,9 @@ public class ParamOdRouteAccessibleServiceImpl implements ParamOdRouteAccessible
 //				logger.info("executeBatch method odroute {} spend: {} seconds\n", BATCH_SIZE,
 //						String.format("%f", timer.time()));
 			}
+			pst.executeBatch();
+			conn.commit();
+			pst.clearBatch();
 
 			pst.close();
 			conn.close();
@@ -112,6 +117,11 @@ public class ParamOdRouteAccessibleServiceImpl implements ParamOdRouteAccessible
 	@Override
 	public int findParamOdRouteAccessibleByVersionCode(String versionCode) {
 		return paramOdRouteAccessibleMapper.selectParamOdRouteAccessibleByVersionCode(versionCode);
+	}
+
+	@Override
+	public List<ParamOdRouteEffective> findParamOdRouteAccessible(ParamOdRouteAccessibleQO qo) {
+		return paramOdRouteAccessibleMapper.selectParamOdRouteAccessible(qo);
 	}
 
 //	public static void main(String[] args) {

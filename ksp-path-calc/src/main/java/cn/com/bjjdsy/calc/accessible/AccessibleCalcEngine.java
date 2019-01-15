@@ -1,4 +1,4 @@
-package cn.com.bjjdsy.calc;
+package cn.com.bjjdsy.calc.accessible;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,9 @@ import cn.com.bjjdsy.data.entity.path.Section;
 import cn.com.bjjdsy.data.entity.path.Station;
 
 @Service
-public class CalcEngine {
+public class AccessibleCalcEngine {
 
-	private static final Logger logger = LoggerFactory.getLogger(CalcEngine.class);
+	private static final Logger logger = LoggerFactory.getLogger(AccessibleCalcEngine.class);
 	@Autowired
 	private CustomConfig customConfig;
 
@@ -197,8 +196,7 @@ public class CalcEngine {
 		return list;
 	}
 
-	private List<ParamOdRouteAccessible> print(int start, int end, List<ParamOdRouteAccessible> list,
-			FileOutputStream fos, String versionCode) throws IOException {
+	private List<ParamOdRouteAccessible> print(int start, int end, List<ParamOdRouteAccessible> list, FileOutputStream fos, String versionCode) throws IOException {
 		StringBuffer routeStationCode = new StringBuffer();
 		StringBuffer routeLineCode = new StringBuffer();
 		StringBuffer routeTransferCode = new StringBuffer();
@@ -213,8 +211,7 @@ public class CalcEngine {
 
 			for (int j = 0; j < sections.size(); ++j) {
 				if (sections.get(j).getDirection() == -1) {
-					routeTransferCode.append(
-							sections.get(j).getStart().getCode() + ";" + sections.get(j).getEnd().getCode() + "-");
+					routeTransferCode.append(sections.get(j).getStart().getCode() + ";" + sections.get(j).getEnd().getCode() + "-");
 					if (j != 0 && j != sections.size() - 1) {
 						tList.add(j);
 					}
@@ -234,7 +231,6 @@ public class CalcEngine {
 				routeLineCode.append(stations.get(tList.get(tList.size() - 1) + 1).getLine().getCode());
 			}
 
-			
 //			IOUtils.write(stationCodes[start] + "," + stationCodes[end] + "," + (i + 1) + "," + routeLineCode + ","
 //					+ routeStationCode + "," + cur.getTime() + "," + cur.getImpedance() + ","
 //					+ (routeTransferCode.length() == 0 ? ""
@@ -248,8 +244,7 @@ public class CalcEngine {
 			odRoute.setRouteStationCode(String.valueOf(routeStationCode));
 			odRoute.setCostTime(cur.getTime());
 			odRoute.setImpedanceTime(new Double(cur.getImpedance()).intValue());
-			odRoute.setRouteTransferCode(routeTransferCode.length() == 0 ? ""
-					: String.valueOf(routeTransferCode.substring(0, routeTransferCode.length() - 1)));
+			odRoute.setRouteTransferCode(routeTransferCode.length() == 0 ? "" : String.valueOf(routeTransferCode.substring(0, routeTransferCode.length() - 1)));
 			odRoute.setVersionCode(versionCode);
 			list.add(odRoute);
 			routeStationCode.setLength(0);
