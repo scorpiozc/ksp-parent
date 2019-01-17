@@ -35,16 +35,18 @@ public class ReadTransferWalktimeFile extends AbstractReadDataFile {
 		Map<Integer, ArrayList<Integer>> transferDict = CalcConstant.transferDict;
 		Map<Integer, Integer> departIntervalTimes = CalcConstant.departIntervalTimesDict;
 		Map<String, Integer> specials = customConfig.getFakeTransferDict();
-		//System.out.println("specials:" + specials.size());
+//		System.out.println("specials:" + specials.size());
 
 		// find the start and end station
 		Station startStation = null, endStation = null;
 		for (int code : transferDict.get(tsCode)) {
 			if ((stations[code].getLine().getCode()) == start) {
 				startStation = stations[code];
+				startStation.setTsCode(tsCode);
 			}
 			if ((stations[code].getLine().getCode()) == end) {
 				endStation = stations[code];
+				endStation.setTsCode(tsCode);
 			}
 		}
 //		for (int code : transferDict.get(tsCode)) {
@@ -54,17 +56,14 @@ public class ReadTransferWalktimeFile extends AbstractReadDataFile {
 		// make the new line
 		int traveltime;
 		double impedance;
-		if (specials.get(Integer.toString(startStation.getCode())) != null
-				&& specials.get(Integer.toString(startStation.getCode())) == endStation.getCode()) {
+		if (specials.get(Integer.toString(startStation.getCode())) != null && specials.get(Integer.toString(startStation.getCode())) == endStation.getCode()) {
 			traveltime = 0;
 			impedance = 0;
 		} else {
 			traveltime = time + (int) (departIntervalTimes.get(end) * departWeight);
-			impedance = (time + departIntervalTimes.get(end) * (departAlphaOn ? departWeight : 1))
-					* CalcPathEnum.RULE.getTransCoeff();
+			impedance = (time + departIntervalTimes.get(end) * (departAlphaOn ? departWeight : 1)) * CalcPathEnum.RULE.getTransCoeff();
 		}
-		Section connect = new Section(startStation, endStation, null, CalcConstant.sectionId++, -1, 0, traveltime,
-				impedance);
+		Section connect = new Section(startStation, endStation, null, CalcConstant.sectionId++, -1, 0, traveltime, impedance);
 		startStation.addSection(connect);
 		endStation.addSection(connect);
 	}
