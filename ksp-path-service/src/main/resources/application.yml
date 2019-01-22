@@ -16,7 +16,7 @@ spring:
     password: accsa2O18ascca
     hikari:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      maximum-pool-size: 100
+      maximum-pool-size: 20
       validation-timeout: 10000
 mybatis:
   mapper-locations:

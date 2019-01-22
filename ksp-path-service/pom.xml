@@ -17,11 +17,6 @@
 		</dependency>
 		<dependency>
 			<groupId>cn.com.bjjdsy</groupId>
-			<artifactId>ksp-data-load</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.com.bjjdsy</groupId>
 			<artifactId>ksp-path-calc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -51,7 +46,7 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<excludes>
-<!-- 					<exclude>logback-spring.xml</exclude> -->
+					<!-- <exclude>logback-spring.xml</exclude> -->
 				</excludes>
 			</resource>
 		</resources>

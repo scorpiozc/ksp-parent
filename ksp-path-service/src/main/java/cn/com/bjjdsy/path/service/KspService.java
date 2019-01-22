@@ -2,7 +2,7 @@ package cn.com.bjjdsy.path.service;
 
 public interface KspService {
 
-	String calcPath(String taskJobId);
+	int calcPath(String taskJobId);
 
-	String checkPath(String versionCode);
+	int checkPath(String versionCode);
 }

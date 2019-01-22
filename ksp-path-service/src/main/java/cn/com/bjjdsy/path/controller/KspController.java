@@ -15,18 +15,18 @@ import cn.com.bjjdsy.path.service.KspService;
 public class KspController {
 
 	private static final Logger logger = LoggerFactory.getLogger(KspController.class);
-	@Resource(name = "KspAccessibleServiceImpl")
+	@Resource(name = "kspAccessibleServiceImpl")
 	private KspService kspAccessibleService;
-	@Resource(name = "KspEffectiveServiceImpl")
+	@Resource(name = "kspEffectiveServiceImpl")
 	private KspService kspEffectiveService;
 
 	@GetMapping(value = "calcAccessiblePath/{taskJobId}")
-	public String calcAccessiblePath(@PathVariable("taskJobId") String taskJobId) {
+	public int calcAccessiblePath(@PathVariable("taskJobId") String taskJobId) {
 		return kspAccessibleService.calcPath(taskJobId);
 	}
 
 	@GetMapping(value = "calcEffectivePath/{taskJobId}")
-	public String calcEffectivePath(@PathVariable("taskJobId") String taskJobId) {
+	public int calcEffectivePath(@PathVariable("taskJobId") String taskJobId) {
 		return kspEffectiveService.calcPath(taskJobId);
 	}
 

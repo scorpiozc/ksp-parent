@@ -2,6 +2,7 @@ package cn.com.bjjdsy.path.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,14 +23,18 @@ import cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessible;
 import cn.com.bjjdsy.data.entity.db.ParamRuleAccessible;
 import cn.com.bjjdsy.data.entity.db.ParamVersionInfo;
 import cn.com.bjjdsy.data.entity.db.ParamVersionRely;
+import cn.com.bjjdsy.data.entity.db.ParamVersionTask;
+import cn.com.bjjdsy.data.entity.path.Line;
+import cn.com.bjjdsy.data.entity.path.Station;
 import cn.com.bjjdsy.data.loader.LoadData;
 import cn.com.bjjdsy.data.service.ParamOdRouteAccessibleService;
 import cn.com.bjjdsy.data.service.ParamRuleAccessibleService;
 import cn.com.bjjdsy.data.service.ParamVersionInfoService;
 import cn.com.bjjdsy.data.service.ParamVersionRelyService;
+import cn.com.bjjdsy.data.service.ParamVersionTaskService;
 import cn.com.bjjdsy.path.service.KspService;
 
-@Service("KspAccessibleServiceImpl")
+@Service("kspAccessibleServiceImpl")
 public class KspAccessibleServiceImpl implements KspService {
 
 	private static final Logger logger = LoggerFactory.getLogger(KspAccessibleServiceImpl.class);
@@ -50,14 +55,17 @@ public class KspAccessibleServiceImpl implements KspService {
 	private ParamOdRouteAccessibleService paramOdRouteAccessibleService;
 	@Autowired
 	private ParamVersionRelyService paramVersionRelyService;
+	@Autowired
+	private ParamVersionTaskService paramVersionTaskService;
 
-	private void init(String versionCode) {
+	private void init(String versionCode) throws IOException {
 		filepath = customConfig.getFilepath() + versionCode;
 		this.initAccessibleRule(versionCode);
+		this.resetCons();
+		this.loadBaseData(versionCode);
 	}
 
 	private void loadBaseData(String versionCode) throws IOException {
-		this.resetCons();
 		File dataFolder = new File(filepath);
 		if (!dataFolder.exists()) {
 			dataFolder.mkdirs();
@@ -77,22 +85,32 @@ public class KspAccessibleServiceImpl implements KspService {
 	}
 
 	@Override
-	public String calcPath(String taskJobId) {
-		String versionCode = this.getParamVersionInfoCode(taskJobId);
-		if (versionCode == null) {
-			return "taskJobId is not exists";
+	public int calcPath(String taskJobId) {
+//		String versionCode = this.getParamVersionInfoCode(taskJobId);
+		ParamVersionTask task = this.getParamVersionTask(taskJobId);
+		if (task == null) {
+			logger.warn("taskJobId is not exists");
+			return 0;
 		}
-		if ("0".equals(this.checkPath(versionCode))) {
-			return "od route is inserted already ";
+		if (task.getTaskJobStatue() != 0) {
+			logger.warn("task is executing");
+			return 0;
 		}
+		String versionCode = task.getVersionCode();
+		if (this.checkPath(versionCode) == 0) {
+			logger.warn("od route is inserted already");
+			return 0;
+		}
+
+		logger.info("task start at {}:", Instant.now());
+		paramVersionTaskService.updateParamVersionInfoStatueToExecute(task);
 		Stopwatch timer = new Stopwatch();
 		timer.start();
 		try {
 			this.init(versionCode);
-			this.loadBaseData(versionCode);
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
-			return "0";
+			return 0;
 		}
 		timer.stop();
 		logger.info("load data spend: {} seconds\n", String.format("%.2f", timer.time()));
@@ -106,7 +124,9 @@ public class KspAccessibleServiceImpl implements KspService {
 		this.printOut(versionCode);
 		timer.stop();
 		logger.info("print accessible path spend: {} seconds\n", String.format("%.2f", timer.time()));
-		return "ok";
+		logger.info("task end at {}:", Instant.now());
+		paramVersionTaskService.updateParamVersionInfoStatueToComplete(task);
+		return 1;
 	}
 
 	private String getParamVersionInfoCode(String taskJobId) {
@@ -116,6 +136,10 @@ public class KspAccessibleServiceImpl implements KspService {
 		} else {
 			return paramVersionInfo.getVersionCode();
 		}
+	}
+
+	private ParamVersionTask getParamVersionTask(String taskJobId) {
+		return paramVersionTaskService.getParamVersionTaskByTaskJobId(taskJobId);
 	}
 
 	private void initAccessibleRule(String versionCode) {
@@ -151,14 +175,15 @@ public class KspAccessibleServiceImpl implements KspService {
 		CalcConstant.parktimesDict.clear();
 		CalcConstant.departIntervalTimesDict.clear();
 		CalcConstant.fakeTransferDict.clear();
-//		CalcConstant.stations = new Station[MAX_STATION];
-//		CalcConstant.lines = new Line[MAX_LINE];
-//		CalcConstant.stationCodes = new int[MAX_STATION];
-//		CalcConstant.stationIndexes = new int[MAX_STATION];
+		CalcConstant.stations = new Station[CalcConstant.MAX_STATION];
+		CalcConstant.lines = new Line[CalcConstant.MAX_LINE];
+		CalcConstant.stationCodes = new int[CalcConstant.MAX_STATION];
+		CalcConstant.stationIndexes = new int[CalcConstant.MAX_STATION];
 	}
 
 	private void calc() {
-		calcEngine.start(CalcPathEnum.RULE.getkNum());
+//		calcEngine.start(CalcPathEnum.RULE.getkNum());
+		calcEngine.start(5);
 	}
 
 	public static void main(String[] args) {
@@ -169,11 +194,11 @@ public class KspAccessibleServiceImpl implements KspService {
 	}
 
 	@Override
-	public String checkPath(String versionCode) {
+	public int checkPath(String versionCode) {
 		int rows = paramOdRouteAccessibleService.findParamOdRouteAccessibleByVersionCode(versionCode);
 		if (rows == 1) {
-			return "0";
+			return 0;
 		}
-		return "1";
+		return 1;
 	}
 }
