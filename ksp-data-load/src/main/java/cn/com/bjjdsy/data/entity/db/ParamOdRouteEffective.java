@@ -1,133 +1,145 @@
 package cn.com.bjjdsy.data.entity.db;
 
+import java.math.BigDecimal;
+
 public class ParamOdRouteEffective extends ParamOdRouteEffectiveKey {
-    private Short oStationCode;
+	private Short oStationCode;
 
-    private Short dStationCode;
+	private Short dStationCode;
 
-    private Short routeNo;
+	private Short routeNo;
 
-    private String routeLineCode;
+	private String routeLineCode;
 
-    private String routeStationCode;
+	private String routeStationCode;
 
-    private String routeStationTime;
+	private String routeStationTime;
 
-    private Long routeDistance;
+	private Long routeDistance;
 
-    private Long routeStationNo;
+	private Long routeStationNo;
 
-    private Integer costTime;
+	private Integer costTime;
 
-    private Integer impedanceTime;
+	private Integer impedanceTime;
 
-    private String routeTransferCode;
+	private String routeTransferCode;
 
-    private String routeTransferTime;
+	private String routeTransferTime;
 
-    private Short routeTransferFrequency;
+	private Short routeTransferFrequency;
 
-    public Short getoStationCode() {
-        return oStationCode;
-    }
+	private BigDecimal passFlowRatio;
 
-    public void setoStationCode(Short oStationCode) {
-        this.oStationCode = oStationCode;
-    }
+	public BigDecimal getPassFlowRatio() {
+		return passFlowRatio;
+	}
 
-    public Short getdStationCode() {
-        return dStationCode;
-    }
+	public void setPassFlowRatio(BigDecimal passFlowRatio) {
+		this.passFlowRatio = passFlowRatio;
+	}
 
-    public void setdStationCode(Short dStationCode) {
-        this.dStationCode = dStationCode;
-    }
+	public Short getoStationCode() {
+		return oStationCode;
+	}
 
-    public Short getRouteNo() {
-        return routeNo;
-    }
+	public void setoStationCode(Short oStationCode) {
+		this.oStationCode = oStationCode;
+	}
 
-    public void setRouteNo(Short routeNo) {
-        this.routeNo = routeNo;
-    }
+	public Short getdStationCode() {
+		return dStationCode;
+	}
 
-    public String getRouteLineCode() {
-        return routeLineCode;
-    }
+	public void setdStationCode(Short dStationCode) {
+		this.dStationCode = dStationCode;
+	}
 
-    public void setRouteLineCode(String routeLineCode) {
-        this.routeLineCode = routeLineCode;
-    }
+	public Short getRouteNo() {
+		return routeNo;
+	}
 
-    public String getRouteStationCode() {
-        return routeStationCode;
-    }
+	public void setRouteNo(Short routeNo) {
+		this.routeNo = routeNo;
+	}
 
-    public void setRouteStationCode(String routeStationCode) {
-        this.routeStationCode = routeStationCode;
-    }
+	public String getRouteLineCode() {
+		return routeLineCode;
+	}
 
-    public String getRouteStationTime() {
-        return routeStationTime;
-    }
+	public void setRouteLineCode(String routeLineCode) {
+		this.routeLineCode = routeLineCode;
+	}
 
-    public void setRouteStationTime(String routeStationTime) {
-        this.routeStationTime = routeStationTime;
-    }
+	public String getRouteStationCode() {
+		return routeStationCode;
+	}
 
-    public Long getRouteDistance() {
-        return routeDistance;
-    }
+	public void setRouteStationCode(String routeStationCode) {
+		this.routeStationCode = routeStationCode;
+	}
 
-    public void setRouteDistance(Long routeDistance) {
-        this.routeDistance = routeDistance;
-    }
+	public String getRouteStationTime() {
+		return routeStationTime;
+	}
 
-    public Long getRouteStationNo() {
-        return routeStationNo;
-    }
+	public void setRouteStationTime(String routeStationTime) {
+		this.routeStationTime = routeStationTime;
+	}
 
-    public void setRouteStationNo(Long routeStationNo) {
-        this.routeStationNo = routeStationNo;
-    }
+	public Long getRouteDistance() {
+		return routeDistance;
+	}
 
-    public Integer getCostTime() {
-        return costTime;
-    }
+	public void setRouteDistance(Long routeDistance) {
+		this.routeDistance = routeDistance;
+	}
 
-    public void setCostTime(Integer costTime) {
-        this.costTime = costTime;
-    }
+	public Long getRouteStationNo() {
+		return routeStationNo;
+	}
 
-    public Integer getImpedanceTime() {
-        return impedanceTime;
-    }
+	public void setRouteStationNo(Long routeStationNo) {
+		this.routeStationNo = routeStationNo;
+	}
 
-    public void setImpedanceTime(Integer impedanceTime) {
-        this.impedanceTime = impedanceTime;
-    }
+	public Integer getCostTime() {
+		return costTime;
+	}
 
-    public String getRouteTransferCode() {
-        return routeTransferCode;
-    }
+	public void setCostTime(Integer costTime) {
+		this.costTime = costTime;
+	}
 
-    public void setRouteTransferCode(String routeTransferCode) {
-        this.routeTransferCode = routeTransferCode;
-    }
+	public Integer getImpedanceTime() {
+		return impedanceTime;
+	}
 
-    public String getRouteTransferTime() {
-        return routeTransferTime;
-    }
+	public void setImpedanceTime(Integer impedanceTime) {
+		this.impedanceTime = impedanceTime;
+	}
 
-    public void setRouteTransferTime(String routeTransferTime) {
-        this.routeTransferTime = routeTransferTime;
-    }
+	public String getRouteTransferCode() {
+		return routeTransferCode;
+	}
 
-    public Short getRouteTransferFrequency() {
-        return routeTransferFrequency;
-    }
+	public void setRouteTransferCode(String routeTransferCode) {
+		this.routeTransferCode = routeTransferCode;
+	}
 
-    public void setRouteTransferFrequency(Short routeTransferFrequency) {
-        this.routeTransferFrequency = routeTransferFrequency;
-    }
+	public String getRouteTransferTime() {
+		return routeTransferTime;
+	}
+
+	public void setRouteTransferTime(String routeTransferTime) {
+		this.routeTransferTime = routeTransferTime;
+	}
+
+	public Short getRouteTransferFrequency() {
+		return routeTransferFrequency;
+	}
+
+	public void setRouteTransferFrequency(Short routeTransferFrequency) {
+		this.routeTransferFrequency = routeTransferFrequency;
+	}
 }

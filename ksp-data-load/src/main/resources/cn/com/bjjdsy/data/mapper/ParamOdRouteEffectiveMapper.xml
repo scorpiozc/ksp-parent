@@ -42,13 +42,13 @@
   <insert id="insert" parameterType="cn.com.bjjdsy.data.entity.db.ParamOdRouteEffective">
     insert into PARAM_OD_ROUTE_EFFECTIVE (ID, VERSION_CODE, O_STATION_CODE, 
       D_STATION_CODE, ROUTE_NO, ROUTE_LINE_CODE, 
-      ROUTE_STATION_CODE, ROUTE_STATION_TIME, ROUTE_DISTANCE, 
+      ROUTE_STATION_CODE, ROUTE_STATION_TIME,PASS_FLOW_RATIO, ROUTE_DISTANCE, 
       ROUTE_STATION_NO, COST_TIME, IMPEDANCE_TIME, 
       ROUTE_TRANSFER_CODE, ROUTE_TRANSFER_TIME, ROUTE_TRANSFER_FREQUENCY
       )
     values (#{id,jdbcType=DECIMAL}, #{versionCode,jdbcType=VARCHAR}, #{oStationCode,jdbcType=DECIMAL}, 
       #{dStationCode,jdbcType=DECIMAL}, #{routeNo,jdbcType=DECIMAL}, #{routeLineCode,jdbcType=VARCHAR}, 
-      #{routeStationCode,jdbcType=VARCHAR}, #{routeStationTime,jdbcType=VARCHAR}, #{routeDistance,jdbcType=DECIMAL}, 
+      #{routeStationCode,jdbcType=VARCHAR}, #{routeStationTime,jdbcType=VARCHAR}, #{passFlowRatio,jdbcType=DECIMAL}, #{routeDistance,jdbcType=DECIMAL}, 
       #{routeStationNo,jdbcType=DECIMAL}, #{costTime,jdbcType=DECIMAL}, #{impedanceTime,jdbcType=DECIMAL}, 
       #{routeTransferCode,jdbcType=VARCHAR}, #{routeTransferTime,jdbcType=VARCHAR}, #{routeTransferFrequency,jdbcType=DECIMAL}
       )
@@ -79,6 +79,9 @@
       </if>
       <if test="routeStationTime != null">
         ROUTE_STATION_TIME,
+      </if>
+      <if test="passFlowRatio != null">
+        PASS_FLOW_RATIO,
       </if>
       <if test="routeDistance != null">
         ROUTE_DISTANCE,
@@ -126,6 +129,9 @@
       </if>
       <if test="routeStationTime != null">
         #{routeStationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="passFlowRatio != null">
+        #{passFlowRatio,jdbcType=DECIMAL},
       </if>
       <if test="routeDistance != null">
         #{routeDistance,jdbcType=DECIMAL},

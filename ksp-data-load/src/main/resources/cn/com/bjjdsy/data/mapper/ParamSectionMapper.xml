@@ -32,9 +32,9 @@
     <include refid="Base_Column_List" />
     from PARAM_SECTION
     where VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
-    <![CDATA[
-    and SECTION_RUN_TIME <> 0
-    ]]>
+<!--     <![CDATA[ -->
+<!--     and SECTION_RUN_TIME <> 0 -->
+<!--     ]]> -->
     order by LINE_CODE
   </select>
 </mapper>

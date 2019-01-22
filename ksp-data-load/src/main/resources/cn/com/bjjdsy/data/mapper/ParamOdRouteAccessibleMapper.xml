@@ -197,7 +197,7 @@ select t.*
    and t.route_no <= e.k_num
    and t.o_station_code = c.o_station_code
    and t.d_station_code = c.d_station_code
-   and t.impedance_time < c.imp_time
+   and t.impedance_time <= c.imp_time
 ]]>
   </select>
 </mapper>

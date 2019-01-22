@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.com.bjjdsy.common.config.CustomConfig;
-import cn.com.bjjdsy.common.util.Stopwatch;
 import cn.com.bjjdsy.data.entity.db.ParamOdRouteEffective;
 import cn.com.bjjdsy.data.mapper.ParamOdRouteEffectiveMapper;
 import cn.com.bjjdsy.data.service.ParamOdRouteEffectiveService;
@@ -41,15 +40,12 @@ public class ParamOdRouteEffectiveServiceImpl implements ParamOdRouteEffectiveSe
 		final int BATCH_SIZE = customConfig.getBatchSize();
 		StringBuffer sql = new StringBuffer();
 		sql.append(
-				"insert into PARAM_OD_ROUTE_EFFECTIVE (VERSION_CODE, O_STATION_CODE,D_STATION_CODE, ROUTE_NO, ROUTE_LINE_CODE,ROUTE_STATION_CODE, ROUTE_STATION_TIME, COST_TIME, IMPEDANCE_TIME,ROUTE_TRANSFER_CODE, ROUTE_TRANSFER_TIME, ID) ");
-		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?)");
-		Stopwatch timer = new Stopwatch();
+				"insert into PARAM_OD_ROUTE_EFFECTIVE (VERSION_CODE, O_STATION_CODE,D_STATION_CODE, ROUTE_NO, ROUTE_LINE_CODE,ROUTE_STATION_CODE, ROUTE_STATION_TIME, COST_TIME, IMPEDANCE_TIME,ROUTE_TRANSFER_CODE, ROUTE_TRANSFER_TIME, ID, PASS_FLOW_RATIO) ");
+		sql.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		try (Connection conn = jdbcTemplate.getDataSource().getConnection();
 				// 构造预处理statement
 				PreparedStatement pst = conn.prepareStatement(sql.toString());) {
-
 			conn.setAutoCommit(false);
-
 			// 1万次循环
 			int i = 1;
 			for (ParamOdRouteEffective odRoute : paramOdRouteEffectives) {
@@ -68,6 +64,7 @@ public class ParamOdRouteEffectiveServiceImpl implements ParamOdRouteEffectiveSe
 				pst.setString(10, odRoute.getRouteTransferCode());
 				pst.setString(11, odRoute.getRouteTransferTime());
 				pst.setLong(12, odRoute.getId());
+				pst.setBigDecimal(13, odRoute.getPassFlowRatio());
 
 				pst.addBatch();
 				// 每5000次提交一次
