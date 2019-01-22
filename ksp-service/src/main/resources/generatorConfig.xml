@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry
+		location="C:\Users\jdsyly\.m2\repository\com\oracle\ojdbc6\11.2.0.3\ojdbc6-11.2.0.3.jar" />
+
+	<context id="MysqlTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@10.0.30.20:1521:ACCSA"
+			userId="accsa" password="accsa2O18ascca">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="cn.com.bjjdsy.data.entity.db"
+			targetProject="MAVEN">
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="cn.com.bjjdsy.data.mapper"
+			targetProject="MAVEN"></sqlMapGenerator>
+
+		<javaClientGenerator targetPackage="cn.com.bjjdsy.data.mapper"
+			type="XMLMAPPER" targetProject="MAVEN"></javaClientGenerator>
+
+		<table schema="" tableName="PARAM_VERSION_TASK"
+			domainObjectName="ParamVersionTask" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="true" selectByExampleQueryId="false"
+			enableDeleteByPrimaryKey="false" enableInsert="false"
+			enableSelectByPrimaryKey="false" enableUpdateByPrimaryKey="true">
+		</table>
+	</context>
+</generatorConfiguration>

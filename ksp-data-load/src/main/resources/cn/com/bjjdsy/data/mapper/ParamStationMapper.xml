@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.bjjdsy.data.mapper.ParamStationMapper">
+  <resultMap id="BaseResultMap" type="cn.com.bjjdsy.data.entity.db.ParamStation">
+    <id column="VERSION_CODE" jdbcType="VARCHAR" property="versionCode" />
+    <id column="STATION_CODE" jdbcType="DECIMAL" property="stationCode" />
+    <result column="LINE_CODE" jdbcType="VARCHAR" property="lineCode" />
+    <result column="TCC_STATION_CODE" jdbcType="VARCHAR" property="tccStationCode" />
+    <result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
+    <result column="STATION_ERG_CODE" jdbcType="DECIMAL" property="stationErgCode" />
+    <result column="DOWN_SEQUENCE" jdbcType="DECIMAL" property="downSequence" />
+    <result column="IS_SHARE_LINE" jdbcType="DECIMAL" property="isShareLine" />
+    <result column="STATION_TYPE" jdbcType="DECIMAL" property="stationType" />
+    <result column="STATION_MODALITY" jdbcType="DECIMAL" property="stationModality" />
+    <result column="X_COORDINATE" jdbcType="DECIMAL" property="xCoordinate" />
+    <result column="Y_COORDINATE" jdbcType="DECIMAL" property="yCoordinate" />
+    <result column="SWITCH_CODE" jdbcType="DECIMAL" property="switchCode" />
+    <result column="IS_USE_STATE" jdbcType="DECIMAL" property="isUseState" />
+    <result column="IS_CA_OD_ROUTE" jdbcType="DECIMAL" property="isCaOdRoute" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TCC_LINE_CODE" jdbcType="VARCHAR" property="tccLineCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    VERSION_CODE, STATION_CODE, LINE_CODE, TCC_STATION_CODE, STATION_NAME, STATION_ERG_CODE, 
+    DOWN_SEQUENCE, IS_SHARE_LINE, STATION_TYPE, STATION_MODALITY, X_COORDINATE, Y_COORDINATE, 
+    SWITCH_CODE, IS_USE_STATE, IS_CA_OD_ROUTE, REMARK, TCC_LINE_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="cn.com.bjjdsy.data.entity.db.ParamStationKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PARAM_STATION
+    where VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+      and STATION_CODE = #{stationCode,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByVersionCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PARAM_STATION
+    where VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+  </select>
+</mapper>
