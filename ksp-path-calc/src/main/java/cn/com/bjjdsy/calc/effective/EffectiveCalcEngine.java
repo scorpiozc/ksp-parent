@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 
+import cn.com.bjjdsy.calc.entity.PassengerDistributeRatio;
 import cn.com.bjjdsy.data.entity.db.ParamOdRouteAccessibleQO;
 import cn.com.bjjdsy.data.entity.db.ParamOdRouteEffective;
 import cn.com.bjjdsy.data.service.ParamOdRouteAccessibleService;
@@ -41,8 +42,10 @@ public class EffectiveCalcEngine {
 			map.get(key).add(odRoute);
 		});
 		List<ParamOdRouteEffective> effectiveList = Lists.newArrayList();
+		PassengerDistributeRatio ratio = new PassengerDistributeRatio();
 		map.forEach((k, v) -> {
 			PassengerDistributeRatioCalcUnit.calcRatio(v);
+//			ratio.calcRatio(v);
 			effectiveList.addAll(v);
 		});
 		return effectiveList;

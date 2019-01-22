@@ -21,7 +21,7 @@ public class ParamOdRouteEffective extends ParamOdRouteEffectiveKey {
 
 	private Integer costTime;
 
-	private Integer impedanceTime;
+	private Double impedanceTime;
 
 	private String routeTransferCode;
 
@@ -111,11 +111,11 @@ public class ParamOdRouteEffective extends ParamOdRouteEffectiveKey {
 		this.costTime = costTime;
 	}
 
-	public Integer getImpedanceTime() {
+	public Double getImpedanceTime() {
 		return impedanceTime;
 	}
 
-	public void setImpedanceTime(Integer impedanceTime) {
+	public void setImpedanceTime(Double impedanceTime) {
 		this.impedanceTime = impedanceTime;
 	}
 

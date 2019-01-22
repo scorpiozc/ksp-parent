@@ -14,19 +14,20 @@ public class PassengerDistributeRatio {
 		this.calcSumS(list);
 		list.forEach(odRoute -> {
 			double x = this.getX(tmin, odRoute.getImpedanceTime());
-			System.out.println("x:" + x);
+//			System.out.println("x:" + x);
 			double s = this.getS(x);
-			System.out.println("s:" + s);
+//			System.out.println("s:" + s);
 			double sumS = this.getSumS();
-			System.out.println("sumS:" + sumS);
+//			System.out.println("sumS:" + sumS);
 			double p = this.getP(s, sumS);
+//			odRoute.setPassFlowRatio(p);
 			System.out.println("p:" + p);
 		});
 	}
 
 	private double getX(double tmin, double t) {
 		double x = 0;
-		double m = 0.6;
+		double m = 0.55;
 		double u = 10 * 60;
 		double range = t * m;
 
@@ -42,10 +43,10 @@ public class PassengerDistributeRatio {
 	private double getS(double x) {
 		double e = 2.718;
 		double a = 0;
-		double sigma = 0.25;
-		System.out.println("fz:" + Math.pow((x - a), 2) + " fm:" + 2 * Math.pow(sigma, 2));
+		double sigma = 0.2;
+//		System.out.println("fz:" + Math.pow((x - a), 2) + " fm:" + 2 * Math.pow(sigma, 2));
 		double pfs = -(Math.pow((x - a), 2) / (2 * Math.pow(sigma, 2)));
-		System.out.println("pfs:" + pfs);
+//		System.out.println("pfs:" + pfs);
 		BigDecimal bd = new BigDecimal(Math.pow(e, pfs));
 		return bd.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
@@ -56,6 +57,7 @@ public class PassengerDistributeRatio {
 
 	private void calcSumS(List<ParamOdRouteEffective> list) {
 		double tmin = list.get(0).getImpedanceTime();
+		sumS = 0;
 		list.forEach(odRoute -> {
 			double x = this.getX(tmin, odRoute.getImpedanceTime());
 			double s = this.getS(x);

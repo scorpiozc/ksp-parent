@@ -33,6 +33,7 @@ public class PassengerDistributeRatioCalcUnit {
 		double x = 0;
 		double m = 0.6;
 		double u = 10 * 60;
+//		double u = 10;
 		double range = t * m;
 
 		if (range > u) {

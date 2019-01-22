@@ -60,7 +60,7 @@ public class ParamOdRouteEffectiveServiceImpl implements ParamOdRouteEffectiveSe
 //				pst.setLong(8, odRoute.getRouteDistance());
 //				pst.setLong(9, odRoute.getRouteStationNo());
 				pst.setInt(8, odRoute.getCostTime());
-				pst.setInt(9, odRoute.getImpedanceTime());
+				pst.setDouble(9, odRoute.getImpedanceTime());
 				pst.setString(10, odRoute.getRouteTransferCode());
 				pst.setString(11, odRoute.getRouteTransferTime());
 				pst.setLong(12, odRoute.getId());
