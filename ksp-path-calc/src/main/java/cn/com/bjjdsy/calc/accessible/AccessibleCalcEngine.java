@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class AccessibleCalcEngine {
 	private void calcPath(int k) {
 		paths = new Path[stationCounts][stationCounts][k];
 		pathCounts = new int[stationCounts][stationCounts];// 0
+
 		for (int i = 0; i < stationCounts; ++i) {
 			calc(i, k);
 		}
@@ -76,7 +78,8 @@ public class AccessibleCalcEngine {
 			if (pathCounts[startIdx][endIdx] >= k) {
 				continue;
 			}
-			paths[startIdx][endIdx][pathCounts[startIdx][endIdx]++] = new Path(shortest);
+			Path tmp = new Path(shortest);
+			paths[startIdx][endIdx][pathCounts[startIdx][endIdx]++] = tmp;
 
 			boolean isTransfer = this.restorePathTimeAndImpedance(shortest, lastStation);
 			boolean isDouble = false;
@@ -181,6 +184,8 @@ public class AccessibleCalcEngine {
 			for (int start = 0; start < stationCounts; ++start) {
 				for (int end = 0; end < stationCounts; ++end) {
 					if (start != end) {
+						// IOUtils.write(stationCodes[start] + ":" + stationCodes[end] + ":" +
+						// pathCounts[start][end] + "\n", fos);
 //						logger.info("{} {}", start, end);
 						if (CalcConstant.PATHOUTPUT) {
 							this.print(start, end, list, fos, versionCode);
@@ -204,7 +209,6 @@ public class AccessibleCalcEngine {
 		// go through each path and print it out
 		List<Integer> tList = new ArrayList<>();
 		for (int i = 0; i < pathCounts[start][end]; ++i) {
-			ParamOdRouteAccessible odRoute = new ParamOdRouteAccessible();
 			Path cur = paths[start][end][i];
 			ArrayList<Station> stations = cur.getStations();
 			ArrayList<Section> sections = cur.getSections();
@@ -231,12 +235,10 @@ public class AccessibleCalcEngine {
 				routeLineCode.append(stations.get(tList.get(tList.size() - 1) + 1).getLine().getCode());
 			}
 
-//			IOUtils.write(stationCodes[start] + "," + stationCodes[end] + "," + (i + 1) + "," + routeLineCode + ","
-//					+ routeStationCode + "," + cur.getTime() + "," + cur.getImpedance() + ","
-//					+ (routeTransferCode.length() == 0 ? ""
-//							: String.valueOf(routeTransferCode.substring(0, routeTransferCode.length() - 1)))
-//					+ "\n", fos);
+//			IOUtils.write(stationCodes[start] + "," + stationCodes[end] + "," + (i + 1) + "," + routeLineCode + "," + routeStationCode + "," + cur.getTime() + "," + cur.getImpedance() + ","
+//					+ (routeTransferCode.length() == 0 ? "" : String.valueOf(routeTransferCode.substring(0, routeTransferCode.length() - 1))) + "\n", fos);
 
+			ParamOdRouteAccessible odRoute = new ParamOdRouteAccessible();
 			odRoute.setoStationCode((short) stationCodes[start]);
 			odRoute.setdStationCode((short) stationCodes[end]);
 			odRoute.setRouteNo((short) (i + 1));
@@ -247,6 +249,7 @@ public class AccessibleCalcEngine {
 			odRoute.setRouteTransferCode(routeTransferCode.length() == 0 ? "" : String.valueOf(routeTransferCode.substring(0, routeTransferCode.length() - 1)));
 			odRoute.setVersionCode(versionCode);
 			list.add(odRoute);
+			
 			routeStationCode.setLength(0);
 			routeLineCode.setLength(0);
 			routeTransferCode.setLength(0);
