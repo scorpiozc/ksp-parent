@@ -16,6 +16,7 @@ public class PassengerDistributeRatioCalcUnit {
 			double tmin = list.get(0).getImpedanceTime();
 			calcSumS(list);
 			list.forEach(odRoute -> {
+//				System.out.println("t:" + odRoute.getImpedanceTime());
 				double x = getX(tmin, odRoute.getImpedanceTime());
 //				System.out.println("x:" + x);
 				double s = getS(x);
@@ -34,7 +35,7 @@ public class PassengerDistributeRatioCalcUnit {
 		double m = 0.6;
 		double u = 10 * 60;
 //		double u = 10;
-		double range = t * m;
+		double range = tmin * m;
 
 		if (range > u) {
 			range = u;
@@ -56,11 +57,11 @@ public class PassengerDistributeRatioCalcUnit {
 		double fm = new BigDecimal(2 * Math.pow(sigma, 2)).doubleValue();
 //		System.out.println("fz:" + fz + " fm:" + fm);
 		// double pfs = -(Math.pow((x - a), 2) / (2 * Math.pow(sigma, 2)));
-		double pfs = -(fz / fm);
+		double pfs = (fz / fm);
 //		System.out.println("pfs:" + pfs);
-		BigDecimal bd = new BigDecimal(Math.pow(e, pfs));
+		BigDecimal bd = new BigDecimal(1 / Math.pow(e, pfs));
 //		return bd.setScale(4, BigDecimal.ROUND_HALF_UP);
-		return Math.pow(e, pfs);
+		return 1 / Math.pow(e, pfs);
 	}
 
 	private static double getSumS() {

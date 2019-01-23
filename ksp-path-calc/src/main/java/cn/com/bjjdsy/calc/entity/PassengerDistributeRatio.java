@@ -27,9 +27,9 @@ public class PassengerDistributeRatio {
 
 	private double getX(double tmin, double t) {
 		double x = 0;
-		double m = 0.55;
+		double m = 0.6;
 		double u = 10 * 60;
-		double range = t * m;
+		double range = tmin * m;
 
 		if (range > u) {
 			range = u;
